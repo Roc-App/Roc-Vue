@@ -1,0 +1,1 @@
+package com.roc.sale.Test.MyThread;//自定义线程类，实现Runnable接口//这并不是一个线程类，是一个可运行的类，它还不是一个线程。class MyRunnable implements Runnable{    @Override    public void run() {        for (int i = 0; i < 50; i++) {            System.out.println(Thread.currentThread().getName() + " - " + i);        }    }}

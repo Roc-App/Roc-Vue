@@ -1,0 +1,1 @@
+package com.roc.system.domain;import lombok.Data;import java.util.Date;@Datapublic class SysSequenceDTO {    private Long seqId;    private String seqName;    private Long currentValue;    private Long incrementValue;    private Long minimum;    private Long maximum;    private String cycleFlg;    private Date createTime;    private Date updTime;}

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.roc.sale.leave.mapper.SaleLeaveMapper">
+    
+    <resultMap type="SaleLeave" id="SaleLeaveResult">
+        <result property="leaveId"    column="LEAVE_ID"    />
+        <result property="leaveName"    column="LEAVE_NAME"    />
+        <result property="leaveStaff"    column="LEAVE_STAFF"    />
+        <result property="leaveType"    column="LEAVE_TYPE"    />
+        <result property="leaveStartTime"    column="LEAVE_START_TIME"    />
+        <result property="leaveEndTime"    column="LEAVE_END_TIME"    />
+        <result property="leaveDesc"    column="LEAVE_DESC"    />
+        <result property="leaveDuration"    column="LEAVE_DURATION"    />
+        <result property="statusCd"    column="STATUS_CD"    />
+        <result property="statusTime"    column="STATUS_TIME"    />
+        <result property="createStaff"    column="CREATE_STAFF"    />
+        <result property="createTime"    column="CREATE_TIME"    />
+        <result property="updateStaff"    column="UPDATE_STAFF"    />
+        <result property="updatedTime"    column="UPDATED_TIME"    />
+    </resultMap>
+
+    <sql id="selectSaleLeaveVo">
+        select LEAVE_ID, LEAVE_NAME, LEAVE_STAFF, LEAVE_TYPE, date_format(LEAVE_START_TIME,'%Y-%m-%d %H:%i:%s') LEAVE_START_TIME, date_format(LEAVE_END_TIME,'%Y-%m-%d %H:%i:%s') LEAVE_END_TIME, LEAVE_DESC, LEAVE_DURATION, STATUS_CD, STATUS_TIME, CREATE_STAFF, CREATE_TIME, UPDATE_STAFF, UPDATED_TIME from SALE_LEAVE
+    </sql>
+
+    <select id="selectSaleLeaveList" parameterType="SaleLeave" resultMap="SaleLeaveResult">
+        <include refid="selectSaleLeaveVo"/>
+        <where>  
+            <if test="leaveName != null  and leaveName != ''"> and LEAVE_NAME like concat('%', #{leaveName}, '%')</if>
+            <if test="leaveStaff != null  and leaveStaff != ''"> and LEAVE_STAFF = #{leaveStaff}</if>
+            <if test="leaveType != null  and leaveType != ''"> and LEAVE_TYPE = #{leaveType}</if>
+            <if test="leaveStartTime != null "> and LEAVE_START_TIME = #{leaveStartTime}</if>
+            <if test="leaveEndTime != null "> and LEAVE_END_TIME = #{leaveEndTime}</if>
+            <if test="leaveDesc != null  and leaveDesc != ''"> and LEAVE_DESC = #{leaveDesc}</if>
+            <if test="leaveDuration != null  and leaveDuration != ''"> and LEAVE_DURATION = #{leaveDuration}</if>
+            <if test="statusCd != null  and statusCd != ''"> and STATUS_CD = #{statusCd}</if>
+            <if test="statusTime != null "> and STATUS_TIME = #{statusTime}</if>
+            <if test="createStaff != null  and createStaff != ''"> and CREATE_STAFF = #{createStaff}</if>
+            <if test="createTime != null "> and CREATE_TIME = #{createTime}</if>
+            <if test="updateStaff != null  and updateStaff != ''"> and UPDATE_STAFF = #{updateStaff}</if>
+            <if test="updatedTime != null "> and UPDATED_TIME = #{updatedTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectSaleLeaveByLeaveId" parameterType="String" resultMap="SaleLeaveResult">
+        <include refid="selectSaleLeaveVo"/>
+        where LEAVE_ID = #{leaveId}
+    </select>
+        
+    <insert id="insertSaleLeave" parameterType="SaleLeave">
+        insert into SALE_LEAVE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="leaveId != null">LEAVE_ID,</if>
+            <if test="leaveName != null">LEAVE_NAME,</if>
+            <if test="leaveStaff != null">LEAVE_STAFF,</if>
+            <if test="leaveType != null">LEAVE_TYPE,</if>
+            <if test="leaveStartTime != null">LEAVE_START_TIME,</if>
+            <if test="leaveEndTime != null">LEAVE_END_TIME,</if>
+            <if test="leaveDesc != null">LEAVE_DESC,</if>
+            <if test="leaveDuration != null">LEAVE_DURATION,</if>
+            <if test="statusCd != null">STATUS_CD,</if>
+            <if test="statusTime != null">STATUS_TIME,</if>
+            <if test="createStaff != null">CREATE_STAFF,</if>
+            <if test="createTime != null">CREATE_TIME,</if>
+            <if test="updateStaff != null">UPDATE_STAFF,</if>
+            <if test="updatedTime != null">UPDATED_TIME,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="leaveId != null">#{leaveId},</if>
+            <if test="leaveName != null">#{leaveName},</if>
+            <if test="leaveStaff != null">#{leaveStaff},</if>
+            <if test="leaveType != null">#{leaveType},</if>
+            <if test="leaveStartTime != null">#{leaveStartTime},</if>
+            <if test="leaveEndTime != null">#{leaveEndTime},</if>
+            <if test="leaveDesc != null">#{leaveDesc},</if>
+            <if test="leaveDuration != null">#{leaveDuration},</if>
+            <if test="statusCd != null">#{statusCd},</if>
+            <if test="statusTime != null">#{statusTime},</if>
+            <if test="createStaff != null">#{createStaff},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateStaff != null">#{updateStaff},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSaleLeave" parameterType="SaleLeave">
+        update SALE_LEAVE
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="leaveName != null">LEAVE_NAME = #{leaveName},</if>
+            <if test="leaveStaff != null">LEAVE_STAFF = #{leaveStaff},</if>
+            <if test="leaveType != null">LEAVE_TYPE = #{leaveType},</if>
+            <if test="leaveStartTime != null">LEAVE_START_TIME = #{leaveStartTime},</if>
+            <if test="leaveEndTime != null">LEAVE_END_TIME = #{leaveEndTime},</if>
+            <if test="leaveDesc != null">LEAVE_DESC = #{leaveDesc},</if>
+            <if test="leaveDuration != null">LEAVE_DURATION = #{leaveDuration},</if>
+            <if test="statusCd != null">STATUS_CD = #{statusCd},</if>
+            <if test="statusTime != null">STATUS_TIME = #{statusTime},</if>
+            <if test="createStaff != null">CREATE_STAFF = #{createStaff},</if>
+            <if test="createTime != null">CREATE_TIME = #{createTime},</if>
+            <if test="updateStaff != null">UPDATE_STAFF = #{updateStaff},</if>
+            <if test="updatedTime != null">UPDATED_TIME = #{updatedTime},</if>
+        </trim>
+        where LEAVE_ID = #{leaveId}
+    </update>
+
+    <delete id="deleteSaleLeaveByLeaveId" parameterType="String">
+        delete from SALE_LEAVE where LEAVE_ID = #{leaveId}
+    </delete>
+
+    <delete id="deleteSaleLeaveByLeaveIds" parameterType="String">
+        delete from SALE_LEAVE where LEAVE_ID in 
+        <foreach item="leaveId" collection="array" open="(" separator="," close=")">
+            #{leaveId}
+        </foreach>
+    </delete>
+</mapper>

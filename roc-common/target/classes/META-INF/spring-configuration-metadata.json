@@ -1,0 +1,37 @@
+{
+  "groups": [
+    {
+      "name": "roc",
+      "type": "com.roc.common.config.RocConfig",
+      "sourceType": "com.roc.common.config.RocConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "roc.copyright-year",
+      "type": "java.lang.String",
+      "description": "版权年份",
+      "sourceType": "com.roc.common.config.RocConfig"
+    },
+    {
+      "name": "roc.demo-enabled",
+      "type": "java.lang.Boolean",
+      "description": "实例演示开关",
+      "sourceType": "com.roc.common.config.RocConfig",
+      "defaultValue": false
+    },
+    {
+      "name": "roc.name",
+      "type": "java.lang.String",
+      "description": "项目名称",
+      "sourceType": "com.roc.common.config.RocConfig"
+    },
+    {
+      "name": "roc.version",
+      "type": "java.lang.String",
+      "description": "版本",
+      "sourceType": "com.roc.common.config.RocConfig"
+    }
+  ],
+  "hints": []
+}
